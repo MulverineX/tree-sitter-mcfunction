@@ -1,0 +1,10 @@
+grammars/
+node_modules/
+build/
+tree-sitter-mcfunction.code-workspace
+scripts/compare/
+zed-extension/
+src/grammar.json
+src/parser.c
+src/node-types.json
+src/src/

@@ -1,0 +1,54 @@
+{
+  "name": "tree-sitter-mcfunction",
+  "version": "0.1.0",
+  "description": "Tree-sitter grammar for Minecraft mcfunction files",
+  "license": "MIT",
+  "main": "bindings/node",
+  "types": "bindings/node",
+  "keywords": [
+    "tree-sitter",
+    "parser",
+    "minecraft",
+    "mcfunction",
+    "datapack"
+  ],
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "src/queries/*",
+    "build/**",
+    "*.wasm"
+  ],
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "node-addon-api": "^8.3.1",
+    "node-gyp-build": "^4.8.4",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.3.2",
+    "web-tree-sitter": "^0.26.7"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.25.3"
+  },
+  "scripts": {
+    "generate": "tree-sitter generate -o build/src src/grammar.js",
+    "build": "tree-sitter generate -o build/src src/grammar.js && ln -sf ../../src/grammar.js build/grammar.js && tree-sitter build --wasm -o build/tree-sitter-mcfunction.wasm build",
+    "test": "tree-sitter test",
+    "parse": "tree-sitter parse",
+    "compare": "bun run scripts/compare-grammars.js",
+    "zed:setup": "bash scripts/setup-zed-extension.sh",
+    "zed:update": "bash scripts/update-zed-extension.sh"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.mcfunction",
+      "file-types": [
+        "mcfunction"
+      ],
+      "highlights": "src/queries/highlights.scm",
+      "injection-regex": "^mcfunction$"
+    }
+  ]
+}
